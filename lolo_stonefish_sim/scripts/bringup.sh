@@ -3,7 +3,8 @@
 NUM_ROBOTS=1
 # the scenario and environment that will be loaded in the simulation
 # it includes the world map, auvs, where the auvs are etc.
-SCENARIO="biograd_world"
+SCENARIO="biograd_empty_world"
+echo "Running scenario: $SCENARIO"
 
 MIN_ALTITUDE=5
 MAX_DEPTH=20
@@ -47,6 +48,13 @@ case "$SCENARIO" in
 		LONGITUDE=15.44264
 		;;
 	"algae_world")
+		# Biograd
+		UTM_ZONE=33
+		UTM_BAND=T
+		LATITUDE=43.93183
+		LONGITUDE=15.44264
+		;;
+	"biograd_empty_world")
 		# Biograd
 		UTM_ZONE=33
 		UTM_BAND=T
@@ -178,6 +186,6 @@ done
 
 
 # Set default window
-tmux select-window -t $SIM_SESSION:1
+tmux select-window -t $SIM_SESSION:4
 # Attach to session
 tmux -2 attach-session -t $SIM_SESSION

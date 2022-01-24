@@ -1,0 +1,3 @@
+environment_file: "$(find smarc_stonefish_worlds)/data/biograd_empty_world/biograd_empty_env.scn" 
+latitude: "43.93183"
+longitude: "15.44264"

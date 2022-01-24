@@ -38,7 +38,7 @@
 <static name="Bottom" type="plane">
     <material name="Rock"/>
     <look name="seabed"/>
-    <world_transform rpy="0.0 0.0 0.0" xyz="0.0 0.0 -50.0"/>
+    <world_transform rpy="0.0 0.0 0.0" xyz="0.0 0.0 50.0"/>
 </static>
 
 <!--
