@@ -158,11 +158,11 @@ do
 	tmux send-keys "mon launch lolo_stonefish_sim robot_bridge.launch robot_name:=$ROBOT_NAME --name=${ROBOT_NAME}_$(tmux display-message -p 'p#I_#W')" C-m
 
 	tmux select-window -t $ROBOT_SESSION:4
-	tmux send-keys "mon launch lolo_action_servers lolo_actions.launch robot_name:=$ROBOT_NAME --name=${ROBOT_NAME}_$(tmux display-message -p 'p#I_#W')" C-m
+	tmux send-keys "sleep 5; roslaunch lolo_action_servers lolo_actions.launch robot_name:=$ROBOT_NAME" C-m
 
 	tmux select-window -t $ROBOT_SESSION:5
 	# tmux send-keys "mon launch lolo_stonefish_sim mission.launch robot_name:=$ROBOT_NAME bridge_port:=$IMC_BRIDGE_PORT neptus_addr:=$NEPTUS_IP bridge_addr:=$SAM_IP imc_system_name:=$ROBOT_NAME imc_src:=$IMC_SRC max_depth:=$MAX_DEPTH min_altitude:=$MIN_ALTITUDE --name=${ROBOT_NAME}_$(tmux display-message -p 'p#I_#W') --no-start" C-m
-	tmux send-keys "sleep 5; roslaunch smarc_bt mission.launch robot_name:=$ROBOT_NAME" C-m
+	tmux send-keys "sleep 8; roslaunch smarc_bt mission.launch robot_name:=$ROBOT_NAME" C-m
 
 	# ADD NEW LAUNCHES THAT ARE SPECIFIC TO ONE SAM HERE
 done
