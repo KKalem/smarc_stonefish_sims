@@ -5,20 +5,9 @@ NUM_ROBOTS=1
 # it includes the world map, auvs, where the auvs are etc.
 SCENARIO="biograd_world"
 
-MIN_ALTITUDE=5
-MAX_DEPTH=20
-
 SIM_SESSION=core_sim
 # by default, no numbering for one robot
 ROBOT_BASE_NAME=lolo
-
-# localhost for simulation, unless the simulation is done on
-# a different computer, no need to change these
-NEPTUS_IP=127.0.0.1
-SAM_IP=127.0.0.1
-# The ports might change if multiple robots are launched, but these
-# will always be the 'first' of many
-IMC_BRIDGE_PORT=6002
 
 # number of sim steps per frame
 SIMULATION_RATE=300
@@ -130,7 +119,6 @@ BASE_SESSION=robot
 ROBOT_SESSION="$SIM_SESSION"
 # and with the same robot_name without numbering
 ROBOT_NAME="$ROBOT_BASE_NAME"
-IMC_SRC=40
 
 # seq ranges are inclusive both sides
 for ROBOT_NUM in $(seq 1 $NUM_ROBOTS)
@@ -143,9 +131,7 @@ do
 		ROBOT_SESSION="${BASE_SESSION}_${ROBOT_NUM}"
 		ROBOT_NAME="${ROBOT_BASE_NAME}_${ROBOT_NUM}"
 		# increment from the default port by 1 for every _extra_ robot
-		let WEBGUI_PORT=WEBGUI_PORT+ROBOT_NUM-1
-		let IMC_BRIDGE_PORT=IMC_BRIDGE_PORT+ROBOT_NUM-1
-		let IMC_SRC=ROBOT_NUM+40
+		# let WEBGUI_PORT=WEBGUI_PORT+ROBOT_NUM-1
 	fi
 
 	# Single SAM launch
@@ -175,7 +161,8 @@ do
 	tmux send-keys "mon launch lolo_action_servers lolo_actions.launch robot_name:=$ROBOT_NAME --name=${ROBOT_NAME}_$(tmux display-message -p 'p#I_#W')" C-m
 
 	tmux select-window -t $ROBOT_SESSION:5
-	tmux send-keys "mon launch lolo_stonefish_sim mission.launch robot_name:=$ROBOT_NAME bridge_port:=$IMC_BRIDGE_PORT neptus_addr:=$NEPTUS_IP bridge_addr:=$SAM_IP imc_system_name:=$ROBOT_NAME imc_src:=$IMC_SRC max_depth:=$MAX_DEPTH min_altitude:=$MIN_ALTITUDE --name=${ROBOT_NAME}_$(tmux display-message -p 'p#I_#W') --no-start" C-m
+	# tmux send-keys "mon launch lolo_stonefish_sim mission.launch robot_name:=$ROBOT_NAME bridge_port:=$IMC_BRIDGE_PORT neptus_addr:=$NEPTUS_IP bridge_addr:=$SAM_IP imc_system_name:=$ROBOT_NAME imc_src:=$IMC_SRC max_depth:=$MAX_DEPTH min_altitude:=$MIN_ALTITUDE --name=${ROBOT_NAME}_$(tmux display-message -p 'p#I_#W') --no-start" C-m
+	tmux send-keys "sleep 5; roslaunch smarc_bt mission.launch robot_name:=$ROBOT_NAME" C-m
 
 	# ADD NEW LAUNCHES THAT ARE SPECIFIC TO ONE SAM HERE
 done
